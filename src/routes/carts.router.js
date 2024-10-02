@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Cart from '../models/Cart.js'; // Asegúrate de que la ruta sea correcta
+import Cart from '../models/Cart.model.js'; // Asegúrate de que la ruta sea correcta
 
 const router = Router();
 

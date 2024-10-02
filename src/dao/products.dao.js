@@ -1,4 +1,4 @@
-import { Products } from './models/index.js';
+import { Products } from '../models/index.js';
 
 export default class ProductDAO {
     async getPaginateProducts(query, options) {

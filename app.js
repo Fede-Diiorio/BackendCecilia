@@ -2,10 +2,7 @@ import express from 'express';
 import path from 'path';
 import exphbs from 'express-handlebars';
 import mongoose from 'mongoose';
-import connectDB from './src/config/db.js';
-import productRoutes from './src/routes/products.router.js';
-import cartRoutes from './src/routes/carts.router.js';
-import dotenv from 'dotenv';
+import { cartRouter, productRouter } from './src/routes/index.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import config from './dbconfig.js';
@@ -20,9 +17,6 @@ const __dirname = dirname(__filename);
 // Configurar dotenv
 const { mongoUrl, dbName } = config
 
-// // Conectar a la base de datos MongoDB
-// connectDB();
-
 // Configurar el motor de plantillas Handlebars
 app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
@@ -36,13 +30,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas de la API
-app.use('/api/products', productRoutes);
-app.use('/api/carts', cartRoutes);
-
-// Ruta principal (Home Page)
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Bienvenido a Tres Tartas' });
-});
+app.use('/api/products', productRouter);
+// app.use('/api/carts', cartRoutes);
 
 // Iniciar servidor
 const startServer = async () => {

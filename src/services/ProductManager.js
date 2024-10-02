@@ -1,4 +1,4 @@
-import ProductDAO from '../dao/mongo/products.dao.js';
+import ProductDAO from '../dao/products.dao.js';
 
 export default class ProductRepository {
 
