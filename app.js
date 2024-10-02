@@ -8,6 +8,7 @@ import cartRoutes from './src/routes/carts.router.js';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import config from './dbconfig.js';
 
 // Inicializar Express
 const app = express();
@@ -17,10 +18,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Configurar dotenv
-dotenv.config();
+const { mongoUrl, dbName } = config
 
-// Conectar a la base de datos MongoDB
-connectDB();
+// // Conectar a la base de datos MongoDB
+// connectDB();
 
 // Configurar el motor de plantillas Handlebars
 app.engine('handlebars', exphbs.engine());
@@ -44,7 +45,18 @@ app.get('/', (req, res) => {
 });
 
 // Iniciar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
-});
+const startServer = async () => {
+    try {
+        await mongoose.connect(mongoUrl, { dbName });
+
+        const PORT = process.env.PORT || 8080;
+
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`\nServidor cargado en el puerto ${PORT}`);
+        });
+    } catch (error) {
+        console.error('Error al iniciar el servidor:', error);
+    };
+};
+
+startServer();
