@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import exphbs from 'express-handlebars';
 import mongoose from 'mongoose';
-import { cartRouter, productRouter } from './src/routes/index.js';
+import { cartRouter, cartRouterView, productRouter, productRouterView } from './src/routes/index.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import config from './dbconfig.js';
@@ -31,7 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas de la API
 app.use('/api/products', productRouter);
+app.use('/products', productRouterView);
 app.use('/api/carts', cartRouter);
+app.use('/carts', cartRouterView);
 
 // Iniciar servidor
 const startServer = async () => {
