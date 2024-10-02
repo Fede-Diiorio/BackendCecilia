@@ -1,4 +1,4 @@
-import { Carts } from './models/index.js';
+import { Carts } from '../models/index.js';
 
 export default class CartDAO {
 

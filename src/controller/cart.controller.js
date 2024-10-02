@@ -1,4 +1,4 @@
-import CartService from '../repository/carts.repository.js';
+import CartService from '../services/CartManager.js';
 
 export default class Controller {
 
@@ -8,14 +8,13 @@ export default class Controller {
         this.#cartService = new CartService();
     };
 
-    async getCarts(req, res) {
+    async getCarts(res) {
         try {
             const carts = await this.#cartService.getCarts();
 
             res.status(200).json(carts);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };
@@ -28,7 +27,6 @@ export default class Controller {
             res.status(200).json(cart);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };
@@ -36,12 +34,10 @@ export default class Controller {
     async createCart(req, res) {
         try {
             const cart = await this.#cartService.addCart();
-            req.logger.info('Carrito creado de manera correcta');
 
             res.status(201).json(cart);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };
@@ -52,12 +48,10 @@ export default class Controller {
             const productId = req.params.pid;
             const user = req.user;
             const cart = await this.#cartService.addProductToCart(productId, cartId, user);
-            req.logger.info('Producto agregado al carrito de manera correcta');
 
             res.status(200).json(cart);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };
@@ -67,12 +61,10 @@ export default class Controller {
             const cartId = req.params.cid;
             const productId = req.params.pid
             const cart = await this.#cartService.deleteProductFromCart(productId, cartId);
-            req.logger.info('Producto eliminado del carrito.');
 
             res.status(200).json(cart);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };
@@ -82,12 +74,10 @@ export default class Controller {
             const cartId = req.params.cid;
             const products = req.body;
             const cart = await this.#cartService.updateCart(cartId, products);
-            req.logger.info('Se ha actualizado el carrito de manera correcta');
 
             res.status(200).json(cart);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };
@@ -98,12 +88,10 @@ export default class Controller {
             const productId = req.params.pid;
             const { quantity } = req.body;
             const cart = await this.#cartService.updateProductQuantity(cartId, productId, quantity);
-            req.logger.info('Se ha actualizado la cantidad de manera correcta');
 
             res.status(200).json(cart);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };
@@ -112,12 +100,10 @@ export default class Controller {
         try {
             const cartId = req.params.cid;
             const cart = await this.#cartService.clearCart(cartId);
-            req.logger.info('Se ha vaciado el carrito de manera correcta');
 
             res.status(204).json(cart);
 
         } catch (error) {
-            req.logger.error(error);
             res.status(error.status).json({ error });
         };
     };

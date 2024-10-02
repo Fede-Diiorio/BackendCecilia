@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rutas de la API
 app.use('/api/products', productRouter);
-// app.use('/api/carts', cartRoutes);
+app.use('/api/carts', cartRouter);
 
 // Iniciar servidor
 const startServer = async () => {
