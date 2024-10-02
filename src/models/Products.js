@@ -45,10 +45,6 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  owner: {
-    type: String,
-    default: "admin"
-  },
 });
 
 schema.virtual('id').get(function () {
