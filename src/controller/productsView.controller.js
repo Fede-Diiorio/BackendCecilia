@@ -16,6 +16,9 @@ export default class Controller {
 
             const products = await this.productRepository.getProducts(page, limit, sort, category, availability);
 
+            const prevLink = `/products?page=${products.prevPage}`;
+            const nextLink = `/products?page=${products.nextPage}`;
+
             const productsPayload = products.docs.map(product => ({
                 ...product,
             }));
@@ -24,9 +27,12 @@ export default class Controller {
                 products: { ...products, payload: productsPayload },
                 titlePage: 'Productos',
                 style: ['styles.css'],
+                prevLink,
+                nextLink,
             });
 
         } catch (error) {
+            console.log(error);
             res.status(500).json({ error });
         }
     }
