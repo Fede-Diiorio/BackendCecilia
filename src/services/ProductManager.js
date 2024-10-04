@@ -25,7 +25,7 @@ export default class ProductRepository {
 
       // Verificación del número de página
       if (isNaN(page)) {
-        throw new Error({ status: 400, name: "Error de paginado." });
+        throw new Error("Error de paginado.");
       };
 
       // Llamada a la base de datos para obtener productos paginados
@@ -37,7 +37,7 @@ export default class ProductRepository {
 
       // Verificación de que la página solicitada exista
       if (page > products.totalPages) {
-        throw new Error({ status: 400, name: "Error de paginado." });
+        throw new Error("Error de paginado.");
       };
 
       // Devolver productos paginados
@@ -47,7 +47,6 @@ export default class ProductRepository {
       // Manejo de errores con un CustomError
       throw new Error({
         name: error.name || 'Error al conectar',
-        status: error.status || 500
       });
     };
   };
@@ -59,10 +58,7 @@ export default class ProductRepository {
       return product;
 
     } catch {
-      throw new Error({
-        name: 'El producto no existe',
-        status: 404
-      });
+      throw new Error('El producto no existe');
     };
   };
 
@@ -74,7 +70,7 @@ export default class ProductRepository {
       const invalidOptions = isNaN(+price) || +price <= 0 || isNaN(+stock) || +stock < 0;
 
       if (!title || !description || !code || !category || invalidOptions) {
-        throw new Error({ status: 400, name: 'Error al agregar el producto' });
+        throw new Error('Error al agregar el producto');
       };
 
       const finalThumbnail = thumbnail ? `../products/${thumbnail.originalname}` : 'Sin Imagen';
@@ -83,7 +79,7 @@ export default class ProductRepository {
       // Verificación de existencia de código
       const existingCode = await this.#productDAO.findByCode(code);
       if (existingCode) {
-        throw new Error({ status: 409, name: 'Error al agregar el producto' });
+        throw new Error('Error al agregar el producto');
       }
 
       // Creación del nuevo producto
@@ -106,7 +102,6 @@ export default class ProductRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error al conectar',
-        status: error.status || 500
       });
     };
   };
@@ -118,10 +113,7 @@ export default class ProductRepository {
       // Verificar si se proporcionaron campos para actualizar
       const areFieldsPresent = Object.keys(productData).length > 0;
       if (!areFieldsPresent) {
-        throw new Error({
-          name: 'Campos inválidos',
-          status: 500
-        });
+        throw new Error('Campos inválidos');
       };
 
       await this.#productDAO.updateProduct(id, productData);
@@ -133,7 +125,6 @@ export default class ProductRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error al actualizar',
-        status: error.status || 500
       });
     };
   };
@@ -143,10 +134,7 @@ export default class ProductRepository {
       const product = await this.getProductById(productId);
 
       if (!product) {
-        throw new Error({
-          status: 404,
-          name: 'El producto no existe.'
-        });
+        throw new Error('El producto no existe.');
       };
 
       return await this.#productDAO.deleteProduct(productId);
@@ -154,7 +142,6 @@ export default class ProductRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error al actualizar',
-        status: error.status || 500
       });
     };
   };

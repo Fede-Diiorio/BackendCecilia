@@ -15,7 +15,7 @@ export default class Controller {
             res.status(200).json(carts);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 
@@ -27,7 +27,7 @@ export default class Controller {
             res.status(200).json(cart);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 
@@ -38,7 +38,7 @@ export default class Controller {
             res.status(201).json(cart);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 
@@ -52,7 +52,7 @@ export default class Controller {
             res.status(200).json(cart);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 
@@ -65,7 +65,7 @@ export default class Controller {
             res.status(200).json(cart);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 
@@ -78,7 +78,7 @@ export default class Controller {
             res.status(200).json(cart);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 
@@ -92,7 +92,7 @@ export default class Controller {
             res.status(200).json(cart);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 
@@ -104,7 +104,7 @@ export default class Controller {
             res.status(204).json(cart);
 
         } catch (error) {
-            res.status(error.status).json({ error });
+            res.status(500).json({ error });
         };
     };
 };

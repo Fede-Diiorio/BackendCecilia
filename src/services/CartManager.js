@@ -18,10 +18,7 @@ export default class CartRepository {
       return cart;
 
     } catch {
-      throw new Error({
-        name: 'cartID inválido',
-        status: 404
-      });
+      throw new Error('cartID inválido');
     };
   };
 
@@ -32,10 +29,7 @@ export default class CartRepository {
       return product;
 
     } catch {
-      throw new Error({
-        name: 'productID inválido',
-        status: 404
-      });
+      throw new Error('productID inválido');
     };
   };
 
@@ -44,10 +38,7 @@ export default class CartRepository {
       return await this.#cartDAO.getCarts();
 
     } catch {
-      throw new Error({
-        name: 'Error con el carrito',
-        status: 500
-      });
+      throw new Error('Error con el carrito');
     };
   };
 
@@ -67,7 +58,6 @@ export default class CartRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error con el carrito',
-        status: error.status || 500
       });
     };
   };
@@ -81,7 +71,6 @@ export default class CartRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error con el carrito',
-        status: error.status || 500
       });
     };
   };
@@ -120,7 +109,6 @@ export default class CartRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error con el carrito',
-        status: error.status || 500
       });
     };
   };
@@ -134,10 +122,7 @@ export default class CartRepository {
         await this.#verifyProductExists(productId);
 
         if (quantity < 1 || isNaN(quantity)) {
-          throw new Error({
-            name: 'Error en la petición',
-            status: 400
-          });
+          throw new Error('Error en la petición');
         };
 
         // Verificar si el producto ya está en el carrito
@@ -163,7 +148,6 @@ export default class CartRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error con el carrito',
-        status: error.status || 500
       });
     };
   };
@@ -174,10 +158,7 @@ export default class CartRepository {
       const cart = await this.#verifyCartExists(cartId);
 
       if (quantity < 0 || isNaN(quantity)) {
-        throw new Error({
-          name: 'Cantidad inválida',
-          status: 400
-        });
+        throw new Error('Cantidad inválida');
       };
 
       const existingProductIndex = cart.products.findIndex(p => p.product.equals(productId));
@@ -192,7 +173,6 @@ export default class CartRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error con el carrito',
-        status: error.status || 500
       });
     };
   };
@@ -207,7 +187,6 @@ export default class CartRepository {
     } catch (error) {
       throw new Error({
         name: error.name || 'Error con el carrito',
-        status: error.status || 500
       });
     };
   };

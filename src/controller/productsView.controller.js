@@ -32,7 +32,6 @@ export default class Controller {
             });
 
         } catch (error) {
-            console.log(error);
             res.status(500).json({ error });
         }
     }
